@@ -15,7 +15,7 @@ public class Move : MonoBehaviour
     [SerializeField] GameObject egg;        // яйца   6
     [SerializeField] GameObject pie;        // пирог  7
     [SerializeField] GameObject jam;        // джем   8
-    [SerializeField] GameObject flower;     // цветочек
+    [SerializeField] GameObject flower;     // цветок
 
     // Продукты в массиве ( 0 - не найден , 1 - найден )
     static public bool[] products = new bool[9];
@@ -25,7 +25,7 @@ public class Move : MonoBehaviour
 
     [SerializeField] AudioSource takeSound; // Звук подбора предмета
     Animator anim;                          // Используется для анимации
-    Rigidbody2D _rb;                        // Использование rb2D
+    Rigidbody2D rb;                        // Использование rb2D
     public float moveSpeed = 1f;            // Дефолтная скорость персонажа
 
     public bool onGround = true;            // На земле ли персонаж?
@@ -37,7 +37,7 @@ public class Move : MonoBehaviour
     private float _horizontalMove = 0f;     // Движение по горизонтали
 
     public Vector2 moveVector;
-    private bool _rightFace = true;         // Сторона лица ( стандарт - право )
+    private bool rightFace = true;          // Сторона лица ( стандарт - право )
     public float jumpForce = 2f;            // Сила прыжка
 
     static bool tpCoolDown = false;         // Есть ли сейчас КД после телепорта?
@@ -45,9 +45,9 @@ public class Move : MonoBehaviour
     public static bool onTaskNow = false;   // Находитесь ли вы в задании 
     void Start()
     {
-        takeSound = GetComponent<AudioSource>();        // АудиоСурс для звуков
-        anim = GetComponent<Animator>();                // Аниматор для анимации
-        _rb = GetComponent<Rigidbody2D>();              // Рб для физики персонажа
+        takeSound = GetComponent<AudioSource>();       // АудиоСурс для звуков
+        anim = GetComponent<Animator>();               // Аниматор для анимации
+        rb = GetComponent<Rigidbody2D>();              // Рб для физики персонажа
         
         for (int i = 0; i < products.Length; i++)
         {
@@ -61,11 +61,11 @@ public class Move : MonoBehaviour
 
         if (_horizontalMove < 0.1f)
         {
-            _rb.WakeUp();
+            rb.WakeUp();
         }
         if (Input.GetKeyDown(KeyCode.Space) && onGround && DoughPie.isStartingTest == false && onTaskNow == false &&  Intro.introStoryEnd == true)      // Если нажимаем клавишу space и находимся на земле
         {
-            _rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);                                                // Положение вверх * силу прыжка, используем ForceMode2D 
+            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);                                                // Положение вверх * силу прыжка, используем ForceMode2D 
         }
 
         if (DoughPie.isStartingTest == false && onTaskNow == false && Intro.introStoryEnd == true)
@@ -75,23 +75,23 @@ public class Move : MonoBehaviour
         }
         anim.SetFloat("moveX", Mathf.Abs(moveVector.x));                                                                // Передаём нашу скорость переменной из Animator , чтобы включить анимацию ходьбы
 
-        if (_horizontalMove < 0 && _rightFace)                                                                          // изменения направления персонажа
+        if (_horizontalMove < 0 && rightFace)                                                                          // изменения направления персонажа
         {
             flip();
         }
-        else if (_horizontalMove > 0 && !_rightFace)
+        else if (_horizontalMove > 0 && !rightFace)
         {
             flip();
         }
     }
     private void FixedUpdate()
     {
-        Vector2 TargetVelocity = new Vector2(_horizontalMove * 2f, _rb.velocity.y);
-        _rb.velocity = TargetVelocity;
+        Vector2 TargetVelocity = new Vector2(_horizontalMove * 2f, rb.velocity.y);
+        rb.velocity = TargetVelocity;
     }
     void flip()                                                                                 // Отзеркаливаем объект персонажа в нужную сторону
     {
-        _rightFace = !_rightFace;
+        rightFace = !rightFace;
 
         Vector3 scale = transform.localScale;
         scale.x *= -1;

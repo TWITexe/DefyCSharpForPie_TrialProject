@@ -16,7 +16,7 @@ public class cookDialog : MonoBehaviour
     public static bool formulaIsIssued = false;         // Выдан ли реепт игроку?
     public bool attemptDialog = false;                  // Прошла попытка диалога?
     public PlayableDirector TimeLineManager;            // Кат-сцена повара
-    public static int dialogCookNow = 1;                          // Диалог, который нужно запустить
+    public static int dialogCookNow = 1;                // Диалог, который нужно запустить
     private bool animationOver = false;                 // Анимация бега кончилась?
     
     public static bool firstCookDialog = false;         // На данный момент начад ли первый диалог?

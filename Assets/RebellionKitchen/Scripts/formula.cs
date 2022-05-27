@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class formula : MonoBehaviour
 {
-    [SerializeField] GameObject formula_layer;                            // Лист с формулой пирога
-    [SerializeField] Animator _anim;                                      // Ссылка на компонент анимаций
-    static public bool formulaActiveNow = false;                          // Формула открыта сейчас? ( стандарт - нет )
+    [SerializeField] GameObject formulaLayer;                            // Лист с формулой пирога
+    [SerializeField] Animator anim;                                      // Ссылка на компонент анимаций
+    static public bool formulaActiveNow = false;                          // Проверка показа формулы
 
     // Отметки "Найдено" в листе с формулой
-    [SerializeField] GameObject tick_milk;
-    [SerializeField] GameObject tick_sugar;
-    [SerializeField] GameObject tick_yeast;
-    [SerializeField] GameObject tick_flour;
-    [SerializeField] GameObject tick_butter;
-    [SerializeField] GameObject tick_salt;
-    [SerializeField] GameObject tick_egg;
-    [SerializeField] GameObject tick_jam;
+    [SerializeField] GameObject tickMilk;
+    [SerializeField] GameObject tickSugar;
+    [SerializeField] GameObject tickYeast;
+    [SerializeField] GameObject tickFlour;
+    [SerializeField] GameObject tickButter;
+    [SerializeField] GameObject tickSalt;
+    [SerializeField] GameObject tickEgg;
+    [SerializeField] GameObject tickJam;
 
 
     // Объекты и переменные связанные с нахождением продуктов
-    [SerializeField] GameObject pointer;                                  // Стрелка указатель ( указывает на кастрюлю для теста )
-    public static bool foundAllProduct = false;                           // Все ли объекты собраны?
+    [SerializeField] GameObject pointer;                                  // Стрелка указатель
+    public static bool foundAllProduct = false;                           // Проверка на собранность всех объектов
 
     private void Start()
     {
-        _anim.GetComponent<Animation>();
+        anim.GetComponent<Animation>();
     }
     void Update()
     {
@@ -45,8 +45,8 @@ public class formula : MonoBehaviour
         {
             if (formulaActiveNow == true)
             {
-                _anim.SetBool("useFormula", false);
-                _anim.SetBool("offFormula", true);
+                anim.SetBool("useFormula", false);
+                anim.SetBool("offFormula", true);
                 StartCoroutine(FormulaUnvisible());
             }
         }
@@ -61,17 +61,17 @@ public class formula : MonoBehaviour
         {
             
             formulaActiveNow = true;
-            if (Move.products[0] == true) { tick_milk.SetActive(true); }
-            if (Move.products[1] == true) { tick_sugar.SetActive(true); }
-            if (Move.products[2] == true) { tick_yeast.SetActive(true); }
-            if (Move.products[3] == true) { tick_flour.SetActive(true); }
-            if (Move.products[4] == true) { tick_butter.SetActive(true); }
-            if (Move.products[5] == true) { tick_salt.SetActive(true); }
-            if (Move.products[6] == true) { tick_egg.SetActive(true); }
-            if (Move.products[8] == true) { tick_jam.SetActive(true); }
-            formula_layer.SetActive(true);
-            _anim.SetBool("useFormula", true);
-            _anim.SetBool("offFormula", false);       
+            if (Move.products[0] == true) { tickMilk.SetActive(true);  }
+            if (Move.products[1] == true) { tickSugar.SetActive(true); }
+            if (Move.products[2] == true) { tickYeast.SetActive(true); }
+            if (Move.products[3] == true) { tickFlour.SetActive(true); }
+            if (Move.products[4] == true) { tickButter.SetActive(true);}
+            if (Move.products[5] == true) { tickSalt.SetActive(true);  }
+            if (Move.products[6] == true) { tickEgg.SetActive(true);   }
+            if (Move.products[8] == true) { tickJam.SetActive(true);   }
+            formulaLayer.SetActive(true);
+            anim.SetBool("useFormula", true);
+            anim.SetBool("offFormula", false);       
             StartCoroutine(OffAnimFormula());
         }
     }
@@ -80,13 +80,13 @@ public class formula : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
         formulaActiveNow = false;
-        formula_layer.SetActive(false);
+        formulaLayer.SetActive(false);
 
     }
     IEnumerator OffAnimFormula()
     {
         yield return new WaitForSeconds(0.3f);
-        _anim.SetBool("useFormula", false);
+        anim.SetBool("useFormula", false);
     }
    
 
