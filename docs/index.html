@@ -92,7 +92,8 @@
           progressBarFull.style.width = (100 * progress) + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
-          canvas.style.display = "block";
+          canvas.style.display = "block"; // показать игру
+        }).catch((message) => {
           console.error(message);
         });
       };
