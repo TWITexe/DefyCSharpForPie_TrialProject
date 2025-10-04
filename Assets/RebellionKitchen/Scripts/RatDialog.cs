@@ -14,6 +14,8 @@ public class RatDialog : MonoBehaviour
     [SerializeField] GameObject dialogWindow;                     // �������
     [SerializeField] GameObject jamReal;                          // ������ �����
 
+    [SerializeField] GameObject pointer;
+
     private int dialogNow = 1;                                    // ����� ������ ������ �������?
     private int index_1;                                          // ������ ��� lines1
 
@@ -23,7 +25,7 @@ public class RatDialog : MonoBehaviour
     {
         text.text = string.Empty;
     }
-    
+
     void Update()
     {
         if (dialogNow >= 3 && jamSpawn == false)
@@ -44,6 +46,11 @@ public class RatDialog : MonoBehaviour
                 text.text = lines1[index_1];
             }
         }
+
+        if (Move.flowerFound == true && secondDialog == false)
+        {
+            pointer.SetActive(true);
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -53,6 +60,7 @@ public class RatDialog : MonoBehaviour
         }
         if (( Move.flowerFound && collision.CompareTag("Player") && secondDialog == false && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))))
         {
+            pointer.SetActive(false);
             StartDialog2();
         }
 

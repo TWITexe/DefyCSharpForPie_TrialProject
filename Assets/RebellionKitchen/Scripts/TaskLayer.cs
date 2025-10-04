@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class TaskLayer : MonoBehaviour
 {
-    [SerializeField] private InputField inputTastText;   // Текст-бокс объект
-    [SerializeField] private Text isTheAnswerTrue;       // Текст о верности ответа
-    [SerializeField] private GameObject LayerTask;       // Лист с заданием
-    [SerializeField] private GameObject DoorinStorange;  // Дверь в подвал
-    public Sprite openDoor;                              // Спрайт открытой двери
+    [SerializeField] private InputField inputTastText;   // пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private Text isTheAnswerTrue;       // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private GameObject LayerTask;       // пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private GameObject DoorinStorange;  // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    public Sprite openDoor;                              // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-    public static bool isAnswerTrue = false;             // Ответ был верным
+    public static bool isAnswerTrue = false;             // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
 
 
@@ -26,15 +26,15 @@ public class TaskLayer : MonoBehaviour
 
     public void GetAnswer()
     {
-        if(inputTastText.text == "12")
+        if(inputTastText.text == "333" || inputTastText.text == "33 3" || inputTastText.text == "3 33")
         {
-            isTheAnswerTrue.text = "Верный ответ, так держать! ";
+            isTheAnswerTrue.text = "РћС‚РІРµС‚ РІРµСЂРЅС‹Р№!!! ";
             DoorinStorange.GetComponent<SpriteRenderer>().sprite = openDoor;
             StartCoroutine(EndTask());
         }
         else
         {
-            isTheAnswerTrue.text = "Ответ неверный :(";
+            isTheAnswerTrue.text = "РћС‚РІРµС‚ РЅРµРІРµСЂРЅС‹Р№, РїРѕРїСЂРѕР±СѓР№ СЃРЅРѕРІР° :(";
         }
     }
     IEnumerator EndTask()

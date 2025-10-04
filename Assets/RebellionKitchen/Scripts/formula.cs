@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class formula : MonoBehaviour
 {
-    [SerializeField] GameObject formulaLayer;                            // Лист с формулой пирога
-    [SerializeField] Animator anim;                                      // Ссылка на компонент анимаций
-    static public bool formulaActiveNow = false;                          // Проверка показа формулы
+    [SerializeField] GameObject formulaLayer;                            // пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] Animator anim;                                      // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    static public bool formulaActiveNow = false;                          // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private bool isAnimating = false; // рџљЂ Р±Р»РѕРєРёСЂРѕРІРєР° РїРѕРІС‚РѕСЂРЅС‹С… РЅР°Р¶Р°С‚РёР№
 
-    // Отметки "Найдено" в листе с формулой
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     [SerializeField] GameObject tickMilk;
     [SerializeField] GameObject tickSugar;
     [SerializeField] GameObject tickYeast;
@@ -19,9 +20,9 @@ public class formula : MonoBehaviour
     [SerializeField] GameObject tickJam;
 
 
-    // Объекты и переменные связанные с нахождением продуктов
-    [SerializeField] GameObject pointer;                                  // Стрелка указатель
-    public static bool foundAllProduct = false;                           // Проверка на собранность всех объектов
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] GameObject pointer;                                  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public static bool foundAllProduct = false;                           // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private void Start()
     {
@@ -41,52 +42,52 @@ public class formula : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && cookDialog.formulaIsIssued && DoughPie.isStartingTest == false && Move.onTaskNow == false)
+        if (Input.GetKeyDown(KeyCode.Q) && !isAnimating &&
+            cookDialog.formulaIsIssued && !DoughPie.isStartingTest && !Move.onTaskNow)
         {
-            if (formulaActiveNow == true)
-            {
-                anim.SetBool("useFormula", false);
-                anim.SetBool("offFormula", true);
-                StartCoroutine(FormulaUnvisible());
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && formulaActiveNow == false && cookDialog.formulaIsIssued && DoughPie.isStartingTest == false && Move.onTaskNow == false)
-        {
-            FormulaOn();
+            if (formulaActiveNow)
+                StartCoroutine(CloseFormula());
+            else
+                StartCoroutine(OpenFormula());
         }
     }
-    public void FormulaOn()
+    private IEnumerator OpenFormula()
     {
-        if (formulaActiveNow == false)
-        {
-            
-            formulaActiveNow = true;
-            if (Move.products[0] == true) { tickMilk.SetActive(true);  }
-            if (Move.products[1] == true) { tickSugar.SetActive(true); }
-            if (Move.products[2] == true) { tickYeast.SetActive(true); }
-            if (Move.products[3] == true) { tickFlour.SetActive(true); }
-            if (Move.products[4] == true) { tickButter.SetActive(true);}
-            if (Move.products[5] == true) { tickSalt.SetActive(true);  }
-            if (Move.products[6] == true) { tickEgg.SetActive(true);   }
-            if (Move.products[8] == true) { tickJam.SetActive(true);   }
-            formulaLayer.SetActive(true);
-            anim.SetBool("useFormula", true);
-            anim.SetBool("offFormula", false);       
-            StartCoroutine(OffAnimFormula());
-        }
+        isAnimating = true;
+        formulaActiveNow = true;
+
+        // РІРєР»СЋС‡Р°РµРј РіР°Р»РѕС‡РєРё
+        if (Move.products[0]) tickMilk.SetActive(true);
+        if (Move.products[1]) tickSugar.SetActive(true);
+        if (Move.products[2]) tickYeast.SetActive(true);
+        if (Move.products[3]) tickFlour.SetActive(true);
+        if (Move.products[4]) tickButter.SetActive(true);
+        if (Move.products[5]) tickSalt.SetActive(true);
+        if (Move.products[6]) tickEgg.SetActive(true);
+        if (Move.products[8]) tickJam.SetActive(true);
+
+        formulaLayer.SetActive(true);
+        anim.SetBool("useFormula", true);
+        anim.SetBool("offFormula", false);
+
+        yield return new WaitForSeconds(0.3f); // РІСЂРµРјСЏ Р°РЅРёРјР°С†РёРё РѕС‚РєСЂС‹С‚РёСЏ
+
+        anim.SetBool("useFormula", false);
+        isAnimating = false;
     }
-   
-    IEnumerator FormulaUnvisible()
+
+    private IEnumerator CloseFormula()
     {
-        yield return new WaitForSeconds(0.8f);
+        isAnimating = true;
+
+        anim.SetBool("useFormula", false);
+        anim.SetBool("offFormula", true);
+
+        yield return new WaitForSeconds(0.8f); // РІСЂРµРјСЏ Р°РЅРёРјР°С†РёРё Р·Р°РєСЂС‹С‚РёСЏ
+
         formulaActiveNow = false;
         formulaLayer.SetActive(false);
-
-    }
-    IEnumerator OffAnimFormula()
-    {
-        yield return new WaitForSeconds(0.3f);
-        anim.SetBool("useFormula", false);
+        isAnimating = false;
     }
    
 

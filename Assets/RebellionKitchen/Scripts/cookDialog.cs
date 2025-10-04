@@ -6,21 +6,22 @@ using UnityEngine.Playables;
 
 public class cookDialog : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI text;              // Наш текст
-    [SerializeField] string[] lines1;                   // Начальные строчки
-    [SerializeField] string[] lines2;                   // Строчки вконце уровня
-    [SerializeField] float TextSpeed;                   // Скорость появления текста
-    static bool isStartedDialog = false;                // Начат ли диалог?
-    public GameObject dialogWindow;                     // Обьект окна диалога
-    public GameObject button_formula;                   // Обьект кнопки рецепта
-    public static bool formulaIsIssued = false;         // Выдан ли реепт игроку?
-    public bool attemptDialog = false;                  // Прошла попытка диалога?
-    public PlayableDirector TimeLineManager;            // Кат-сцена повара
-    public static int dialogCookNow = 1;                // Диалог, который нужно запустить
-    private bool animationOver = false;                 // Анимация бега кончилась?
+    [SerializeField] TextMeshProUGUI text;              // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] string[] lines1;                   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] string[] lines2;                   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] float TextSpeed;                   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] GameObject pointer;
+    static bool isStartedDialog = false;                // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
+    public GameObject dialogWindow;                     // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public GameObject button_formula;                   // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public static bool formulaIsIssued = false;         // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
+    public bool attemptDialog = false;                  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ?
+    public PlayableDirector TimeLineManager;            // пїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    public static int dialogCookNow = 1;                // пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private bool animationOver = false;                 // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?
     
-    public static bool firstCookDialog = false;         // На данный момент начад ли первый диалог?
-    private bool secondCookDialog = false;              // На данный момент начад ли второй диалог?
+    public static bool firstCookDialog = false;         // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
+    private bool secondCookDialog = false;              // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
 
     private int index;
     void Start()
@@ -52,6 +53,7 @@ public class cookDialog : MonoBehaviour
         if ((attemptDialog == false && collision.CompareTag("Player")) && isStartedDialog == false && ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))))
         {
             StartDialog1();
+            pointer.SetActive(false);
             attemptDialog = true;
         }
         if (( animationOver == true && collision.CompareTag("Player") && secondCookDialog == false && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))))

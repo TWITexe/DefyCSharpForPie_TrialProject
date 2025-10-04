@@ -6,11 +6,11 @@ public class DoughPie : MonoBehaviour
 {
     public GameObject pan;                             // Миска с тестом
     public GameObject tablePie;                        // Стол-Духовка
-    public GameObject test_layer;                      // Лист с тестом
-    public static bool isStartingTest = false;         // Начан ли тест?
-    public static bool attemptTest = false;            // Попытка теста использованна?
+    public GameObject testLayer;                      // Лист с тестом
     public Sprite spritePan;                           // Миска с тестом внутри
     public Sprite spriteTablePie;                      // Стол с пирогом
+    public static bool isStartingTest = false;         // Проверка начала теста
+    public static bool attemptTest = false;            // Использована ли попытка
 
 
     private void OnTriggerStay2D(Collider2D other)
@@ -21,7 +21,7 @@ public class DoughPie : MonoBehaviour
             {
                 attemptTest = true;
                 isStartingTest = true;
-                test_layer.SetActive(true);
+                testLayer.SetActive(true);
                 pan.GetComponent<SpriteRenderer>().sprite = spritePan;
                 tablePie.GetComponent<SpriteRenderer>().sprite = spriteTablePie;
             }

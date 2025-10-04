@@ -5,49 +5,51 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     
-    // Продукты для пирога: 
-    [SerializeField] GameObject milk;       // молоко 0
-    [SerializeField] GameObject sugar;      // сахар  1
-    [SerializeField] GameObject yeast;      // дрожжи 2
-    [SerializeField] GameObject flour;      // мука   3
-    [SerializeField] GameObject butter;     // масло  4
-    [SerializeField] GameObject salt;       // соль   5
-    [SerializeField] GameObject egg;        // яйца   6
-    [SerializeField] GameObject pie;        // пирог  7
-    [SerializeField] GameObject jam;        // джем   8
-    [SerializeField] GameObject flower;     // цветок
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: 
+    [SerializeField] GameObject milk;       // пїЅпїЅпїЅпїЅпїЅпїЅ 0
+    [SerializeField] GameObject sugar;      // пїЅпїЅпїЅпїЅпїЅ  1
+    [SerializeField] GameObject yeast;      // пїЅпїЅпїЅпїЅпїЅпїЅ 2
+    [SerializeField] GameObject flour;      // пїЅпїЅпїЅпїЅ   3
+    [SerializeField] GameObject butter;     // пїЅпїЅпїЅпїЅпїЅ  4
+    [SerializeField] GameObject salt;       // пїЅпїЅпїЅпїЅ   5
+    [SerializeField] GameObject egg;        // пїЅпїЅпїЅпїЅ   6
+    [SerializeField] GameObject pie;        // пїЅпїЅпїЅпїЅпїЅ  7
+    [SerializeField] GameObject jam;        // пїЅпїЅпїЅпїЅ   8
+    [SerializeField] GameObject flower;     // пїЅпїЅпїЅпїЅпїЅпїЅ
 
-    // Продукты в массиве ( 0 - не найден , 1 - найден )
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ( 0 - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ , 1 - пїЅпїЅпїЅпїЅпїЅпїЅ )
     static public bool[] products = new bool[9];
 
-    static public bool flowerFound = false; // Цветочек найден? ( Нужен для задания с мышкой )
+    static public bool flowerFound = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ? ( пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ )
 
 
-    [SerializeField] AudioSource takeSound; // Звук подбора предмета
-    Animator anim;                          // Используется для анимации
-    Rigidbody2D rb;                        // Использование rb2D
-    public float moveSpeed = 1f;            // Дефолтная скорость персонажа
+    [SerializeField] AudioSource takeSound; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    Animator anim;                          // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    Rigidbody2D rb;                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ rb2D
+    public float moveSpeed = 1f;            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-    public bool onGround = true;            // На земле ли персонаж?
-    public Transform groundCheck;           // Ссылка, которая держит в себе ключ
-    public LayerMask whatIsGround;          // Ключ, который проверяет персонажа на земле
-    public float radiusCheck = 5f;          // Радиус ключа
+    public bool onGround = true;            // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?
+    public Transform groundCheck;           // пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    public LayerMask whatIsGround;          // пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public float radiusCheck = 5f;          // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
     
-    private float _horizontalMove = 0f;     // Движение по горизонтали
+    private float _horizontalMove = 0f;     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     public Vector2 moveVector;
-    private bool rightFace = true;          // Сторона лица ( стандарт - право )
-    public float jumpForce = 2f;            // Сила прыжка
+    private bool rightFace = true;          // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ( пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅ )
+    public float jumpForce = 2f;            // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-    static bool tpCoolDown = false;         // Есть ли сейчас КД после телепорта?
+    static bool tpCoolDown = false;         // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?
 
-    public static bool onTaskNow = false;   // Находитесь ли вы в задании 
+    public static bool onTaskNow = false;   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
     void Start()
     {
-        takeSound = GetComponent<AudioSource>();       // АудиоСурс для звуков
-        anim = GetComponent<Animator>();               // Аниматор для анимации
-        rb = GetComponent<Rigidbody2D>();              // Рб для физики персонажа
+        takeSound = GetComponent<AudioSource>();       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        anim = GetComponent<Animator>();               // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rb = GetComponent<Rigidbody2D>();              // пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+
         
         for (int i = 0; i < products.Length; i++)
         {
@@ -63,19 +65,19 @@ public class Move : MonoBehaviour
         {
             rb.WakeUp();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && onGround && DoughPie.isStartingTest == false && onTaskNow == false &&  Intro.introStoryEnd == true)      // Если нажимаем клавишу space и находимся на земле
+        if (Input.GetKeyDown(KeyCode.Space) && onGround && DoughPie.isStartingTest == false && onTaskNow == false &&  Intro.introStoryEnd == true)      // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ space пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         {
-            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);                                                // Положение вверх * силу прыжка, используем ForceMode2D 
+            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);                                                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ * пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ForceMode2D 
         }
 
         if (DoughPie.isStartingTest == false && onTaskNow == false && Intro.introStoryEnd == true)
         {
-            _horizontalMove = Input.GetAxisRaw("Horizontal") * moveSpeed;                                               // Горизонтальное движение = направление * скорость
+            _horizontalMove = Input.GetAxisRaw("Horizontal") * moveSpeed;                                               // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ = пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             moveVector.x = Input.GetAxis("Horizontal");
         }
-        anim.SetFloat("moveX", Mathf.Abs(moveVector.x));                                                                // Передаём нашу скорость переменной из Animator , чтобы включить анимацию ходьбы
+        anim.SetFloat("moveX", Mathf.Abs(moveVector.x));                                                                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Animator , пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-        if (_horizontalMove < 0 && rightFace)                                                                          // изменения направления персонажа
+        if (_horizontalMove < 0 && rightFace)                                                                          // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             flip();
         }
@@ -89,7 +91,7 @@ public class Move : MonoBehaviour
         Vector2 TargetVelocity = new Vector2(_horizontalMove * 2f, rb.velocity.y);
         rb.velocity = TargetVelocity;
     }
-    void flip()                                                                                 // Отзеркаливаем объект персонажа в нужную сторону
+    void flip()                                                                                 // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     {
         rightFace = !rightFace;
 
@@ -100,8 +102,8 @@ public class Move : MonoBehaviour
 
     void CheckingGround()
     {
-        onGround = Physics2D.OverlapCircle(groundCheck.position, radiusCheck, whatIsGround);    // Проверка ( на земле ли персонаж )
-        anim.SetBool("onGround", onGround);                                                     // Анимация прыжка
+        onGround = Physics2D.OverlapCircle(groundCheck.position, radiusCheck, whatIsGround);    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ( пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ )
+        anim.SetBool("onGround", onGround);                                                     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     }
 
     private void OnTriggerStay2D(Collider2D collision)

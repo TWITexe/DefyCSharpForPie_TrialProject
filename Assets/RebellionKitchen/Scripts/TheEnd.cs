@@ -5,16 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class TheEnd : MonoBehaviour
 {
-    public GameObject endingStoryLayer;             // Лист для интро
-    public GameObject pressE;                       // Нажатие на E
-    [SerializeField] GameObject endStory1;          // Конец кадр 1
-    [SerializeField] GameObject endStory2;          // Конец кадр 2
-    [SerializeField] GameObject endStory3;          // Конец кадр 3 
-    [SerializeField] GameObject endStory4;          // Конец кадр 4
+    public GameObject endingStoryLayer;             // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public GameObject pressE;                       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ E
+    [SerializeField] GameObject endStory1;          // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 1
+    [SerializeField] GameObject endStory2;          // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 2
+    [SerializeField] GameObject endStory3;          // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 3 
+    [SerializeField] GameObject endStory4;          // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 4
 
 
-    public static bool introStoryEnd = false;       // Закончилась ли предыстория
-    int numberOfClicks = 0;                         // Кол-во нажатий "E" 
+    public static bool introStoryEnd = false;       // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    int numberOfClicks = 0;                         // пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "E" 
 
     void Update()
     {
@@ -44,7 +44,6 @@ public class TheEnd : MonoBehaviour
                         break;
                     case 6:
                         introStoryEnd = true;
-                        Application.Quit();
                         break;
                 }
 

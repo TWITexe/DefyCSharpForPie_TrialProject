@@ -6,9 +6,9 @@ using UnityEngine.Playables;
 public class DoorStorange : MonoBehaviour
 {
     public static bool doorUnlocked = false;                 // Открыта ли дверь?
-    [SerializeField] PlayableDirector TimeLineRat;           // Кат-сцена повара
-    public static bool firstInStorange = false;              // Был ли первый заход в подвал?
-    [SerializeField] GameObject jam;                         // ( чтобы влючить коллайдер у джема, во время бега мышки ) 
+    [SerializeField] PlayableDirector TimeLineRat;           // Сцена повара
+    public static bool firstInStorange = false;              // Активация подвала была осуществлена?
+    [SerializeField] GameObject jam;
     void Start()
     {
         
@@ -29,5 +29,4 @@ public class DoorStorange : MonoBehaviour
         yield return new WaitForSeconds(15f);
         jam.GetComponent<BoxCollider2D>().enabled = true;
     }
-
 }

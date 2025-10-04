@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class QuestionsPanel : MonoBehaviour
 {
-    public static bool isDoughReady = false;        // Тесто готово?
+    public static bool isDoughReady = false;
              
 
     public List<QuestionsAndAnswers> QnA;
